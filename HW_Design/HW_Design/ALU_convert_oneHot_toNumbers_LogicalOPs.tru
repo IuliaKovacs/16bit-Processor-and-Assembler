@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<truthTable>
+  <variables>
+    <variable name="AND"/>
+    <variable name="OR"/>
+    <variable name="XOR"/>
+    <variable name="NOT"/>
+  </variables>
+  <results>
+    <result>
+      <name>out1</name>
+      <values class="BoolTable">0100000000000000</values>
+    </result>
+    <result>
+      <name>out2</name>
+      <values class="BoolTable">0010100000000000</values>
+    </result>
+    <result>
+      <name>out3</name>
+      <values class="BoolTable">0010000010000000</values>
+    </result>
+  </results>
+</truthTable>

@@ -1,0 +1,4 @@
+        MOV X, @A
+        SUB X, @B
+        HLT
+

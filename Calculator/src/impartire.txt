@@ -1,0 +1,6 @@
+        MOV X, @A
+        MOV Y, @A
+        UDV X, @B
+        MOD Y, @B
+        HLT
+

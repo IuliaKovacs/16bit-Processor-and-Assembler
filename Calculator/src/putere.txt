@@ -1,0 +1,9 @@
+        MOV X, @A
+        MOV Y, @B
+        JMS INMULTIRE
+        HLT
+INMULTIRE MUL X, @A
+        SUB Y,1
+        CMP Y, 1
+        BNE INMULTIRE
+        RET

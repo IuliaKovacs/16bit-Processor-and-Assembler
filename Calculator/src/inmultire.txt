@@ -1,0 +1,3 @@
+        MOV X, @A
+        MUL X, @B
+        HLT

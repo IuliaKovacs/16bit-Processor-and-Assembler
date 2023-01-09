@@ -4,40 +4,47 @@ import java.util.Hashtable;
 public class Assembler {
 
 
-    //path to source and destination files
-    private static File sourceFile, destinationFile;
+
     private static Hashtable<String, Integer>  labelList = new Hashtable<String, Integer>();
     private static Hashtable<String, Integer>  instructionList = new Hashtable<String, Integer>();
     private static int currentLine = 0; //
     private static int codeLineCnt = 0; //ProgramCounter
 
 
-    public static void assembleGeneratedAssembly(String sourceFileString) {
+    public static void assembleGeneratedAssembly(String[] args) {
+        //path to source and destination files
+        File sourceFile, destinationFile;
 
+        destinationFile = new File("assembled.prog");
 
-        if (sourceFileString == null) {
+        if (args.length == 0) {
             System.out.println("no filename specified");
             System.exit(-1);
         }
 
-        sourceFile = new File(sourceFileString);
+        sourceFile = new File(args[0]);
 
-
-        if (sourceFile.getParent() != null)
-            destinationFile = new File(sourceFile.getParent().concat(File.separator).concat("assembled.prog"));
-        else
-            destinationFile = new File("assembled.prog");
-
-
-
-
-        if (destinationFile!=null && !destinationFile.exists())
-            try {
-                destinationFile.createNewFile();
-            } catch (IOException e) {
-                System.out.println("Create machine language file error");
-                e.printStackTrace();
+        if (args.length == 1) {
+            if (args[0].equalsIgnoreCase("-h") || args[0].equalsIgnoreCase("--help")) {
+                System.out.println("Useage:");
+                System.out.println("java Aassembler [options]");
+                System.out.println("options:");
+                System.out.println("<source_code_path> <dest_path>:");
+                System.out.println("\tAssemble source code to dest. For exaple .\\bin\\test1.asm .\\bin\\test1.prog");
+                System.out.println("<source_code_path>:");
+                System.out.println("\tAssemble source code to dest file a.prog");
+                System.out.println("-h(or --help):");
+                System.out.println("\tShow this help");
+                System.exit(0);
+            } else {
+                if (sourceFile.getParent() != null)
+                    destinationFile = new File(sourceFile.getParent().concat(File.separator).concat("assembled.prog"));
+                else
+                    destinationFile = new File("assembled.prog");
             }
+        } else if (args.length == 2) {
+            destinationFile = new File(args[1]);
+        }
 
 
         if (destinationFile!=null && !destinationFile.exists())
@@ -257,14 +264,18 @@ public class Assembler {
 
         Integer opCodeInstruction = instructionList.get(op);
 
-        if ( opCodeInstruction != null){
+        if (verifyHLT(op)){
+            return "0000000000000000";
+        }
+
+        if ( opCodeInstruction != null && register != null){
             String opCodeInstructionBinary = Integer.toBinaryString(opCodeInstruction);
-            translatedLine= saturateWithZeros(opCodeInstructionBinary.length())+opCodeInstructionBinary;
+            translatedLine= saturateWithZeros(6,opCodeInstructionBinary.length())+opCodeInstructionBinary;
             translatedLine += getRegisterType(register);
             if ((verifyImmediateValue(immediateValue) == true)&&(verifyShiftValue(op, Integer.parseInt(immediateValue)))){
                 String immediateValueBinary = Integer.toBinaryString(Integer.parseInt(immediateValue));
 
-                translatedLine +=saturateWithZeros(immediateValueBinary.length())+ immediateValueBinary;
+                translatedLine +=saturateWithZeros(9,immediateValueBinary.length())+ immediateValueBinary;
             }
             else reportSyntaxError(currentLine, "Immediate Value out of bounds: " + immediateValue);
         }
@@ -274,18 +285,21 @@ public class Assembler {
 
         // translatedLine = 6 bits (operation Code) + 1 bit (register type) + 9 bits (immediate value)
         // or translatedLine = 6 bits (Branch operation Code) + 10 bits (Address)
+        // or HLT = 16 of zeros
         return translatedLine;
         }
 
-   private static String saturateWithZeros(Integer numberBitsLength){
+   private static String saturateWithZeros(Integer fullNumber, Integer numberBitsLength){
         String zeros = "";
-        Integer remainingBits = 9 - numberBitsLength;
+        Integer remainingBits = fullNumber - numberBitsLength;
         while(remainingBits > 0){
             zeros += "0";
             remainingBits--;
         }
         return zeros;
    }
+
+
 
     private static String getRegisterType(String register){
         String registerType = "";
@@ -326,8 +340,14 @@ public class Assembler {
         return valid;
     }
 
-    public static void main(String args[]){
-        assembleGeneratedAssembly("adunare.asm");
+    private static boolean verifyHLT(String opCode){
+        return (opCode.equals("HLT"));
+    }
+
+
+    public static void main (String args[]){
+        String arr[] = new String[4]; arr[0]="adunare.asm";
+        assembleGeneratedAssembly(arr);
     }
 
 }

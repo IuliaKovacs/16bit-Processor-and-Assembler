@@ -256,6 +256,7 @@ public class Calculator implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String number1send;
         String number2send;
+        String args[] = new String[4];
 
         Object source = e.getSource();
         if (source == this.onRadioButton) {
@@ -348,7 +349,8 @@ public class Calculator implements ActionListener {
                              number1send = String.valueOf((int)(this.number));
                              number2send = String.valueOf(Integer.parseInt(this.textField.getText()));
                             AssemblyGenerator.twoNumberOperation("src\\plus.txt", "adunare", "@A", number1send, "@B", number2send );
-                            Assembler.assembleGeneratedAssembly("adunare.asm");
+                            args[0]="adunare.asm";
+                            Assembler.assembleGeneratedAssembly(args);
 
                             if (Double.toString(this.answer).endsWith(".0")) {
                                 this.textField.setText(Double.toString(this.answer).replace(".0", ""));
@@ -363,6 +365,8 @@ public class Calculator implements ActionListener {
                             number1send = String.valueOf((int)(this.number));
                             number2send = String.valueOf(Integer.parseInt(this.textField.getText()));
                             AssemblyGenerator.twoNumberOperation("src\\minus.txt", "scadere", "@A", number1send, "@B", number2send );if (Double.toString(this.answer).endsWith(".0")) {
+                            args[0]="scadere.asm";
+                            Assembler.assembleGeneratedAssembly(args);
                                 this.textField.setText(Double.toString(this.answer).replace(".0", ""));
                             } else {
                                 this.textField.setText(Double.toString(this.answer));
@@ -375,6 +379,8 @@ public class Calculator implements ActionListener {
                             number1send = String.valueOf((int)(this.number));
                             number2send = String.valueOf(Integer.parseInt(this.textField.getText()));
                             AssemblyGenerator.twoNumberOperation("src\\inmultire.txt", "inmultire", "@A", number1send, "@B", number2send );
+                            args[0]="inmultire.asm";
+                            Assembler.assembleGeneratedAssembly(args);
                             if (Double.toString(this.answer).endsWith(".0")) {
                                 this.textField.setText(Double.toString(this.answer).replace(".0", ""));
                             } else {
@@ -388,6 +394,8 @@ public class Calculator implements ActionListener {
                             number1send = String.valueOf((int)(this.number));
                             number2send = String.valueOf(Integer.parseInt(this.textField.getText()));
                             AssemblyGenerator.twoNumberOperation("src\\putere.txt", "putere", "@A", number1send, "@B", number2send );
+                            args[0]="inmultire.asm";
+                            Assembler.assembleGeneratedAssembly(args);
                             if (Double.toString(this.answer).endsWith(".0")) {
                                 this.textField.setText(Double.toString(this.answer).replace(".0", ""));
                             } else {
@@ -401,6 +409,8 @@ public class Calculator implements ActionListener {
                             number1send = String.valueOf((int)(this.number));
                             number2send = String.valueOf(Integer.parseInt(this.textField.getText()));
                             AssemblyGenerator.twoNumberOperation("src\\impartire.txt", "impartire", "@A", number1send, "@B", number2send );
+                            args[0]="inmultire.asm";
+                            Assembler.assembleGeneratedAssembly(args);
                             if (Double.toString(this.answer).endsWith(".0")) {
                                 this.textField.setText(Double.toString(this.answer).replace(".0", ""));
                             } else {
@@ -416,6 +426,8 @@ public class Calculator implements ActionListener {
                         number2 = Integer.parseInt(this.textField.getText());
                         number1send = String.valueOf(Integer.parseInt(this.textField.getText()));
                         AssemblyGenerator.oneNumberOperation("src\\aux.txt", "fibonaci1", "@A", number1send);
+                        args[0]="fibonaci1.asm";
+                        Assembler.assembleGeneratedAssembly(args);
                         rez = this.findIndex(number2);
                         this.textField.setText(Integer.toString(rez));
                     } else if (source == this.buttonFact) {
@@ -423,6 +435,8 @@ public class Calculator implements ActionListener {
                         number2 = Integer.parseInt(this.textField.getText());
                         number1send = String.valueOf(Integer.parseInt(this.textField.getText()));
                         AssemblyGenerator.oneNumberOperation("src\\aux.txt", "factorial", "@A", number1send);
+                        args[0]="factorial.asm";
+                        Assembler.assembleGeneratedAssembly(args);
                         rez = this.factorial(number2);
                         this.textField.setText(Integer.toString(rez));
                     } else {
@@ -432,6 +446,8 @@ public class Calculator implements ActionListener {
                             number2 = Integer.parseInt(this.textField.getText());
                             number1send = String.valueOf(Integer.parseInt(this.textField.getText()));
                             AssemblyGenerator.oneNumberOperation("src\\putere2.txt", "putere2", "@A", number1send);
+                            args[0]="putere2.asm";
+                            Assembler.assembleGeneratedAssembly(args);
                             rez2 = power(2.0, number2);
                             this.textField.setText(Double.toString(rez2));
                         } else if (source == this.buttonTen) {
@@ -439,6 +455,8 @@ public class Calculator implements ActionListener {
                             number2 = Integer.parseInt(this.textField.getText());
                             number1send = String.valueOf(Integer.parseInt(this.textField.getText()));
                             AssemblyGenerator.oneNumberOperation("src\\putere10.txt", "putere10", "@A", number1send);
+                            args[0]="putere10.asm";
+                            Assembler.assembleGeneratedAssembly(args);
                             rez2 = power(10.0, number2);
                             this.textField.setText(Double.toString(rez2));
                         } else if (source == this.buttonSquare) {
@@ -446,6 +464,8 @@ public class Calculator implements ActionListener {
                             number2 = Integer.parseInt(this.textField.getText());
                             number1send = String.valueOf(Integer.parseInt(this.textField.getText()));
                             AssemblyGenerator.twoNumberOperation("src\\inmultire.txt", "patrat", "@A", number1send, "@B", number1send);
+                            args[0]="patrat.asm";
+                            Assembler.assembleGeneratedAssembly(args);
                             rez2 = power((double)number2, 2);
                             this.textField.setText(Double.toString(rez2));
                         }

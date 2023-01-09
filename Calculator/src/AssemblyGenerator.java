@@ -122,9 +122,9 @@ public class AssemblyGenerator {
 
     public static void main(String[] args)
     {
-        oneNumberOperation("D:\\OneDrive - Universitatea Politehnica Timisoara\\UPT AN 3 SEM I\\FIC\\Calculator\\src\\putere.txt", "newOneOperation","@A", "10");
+        oneNumberOperation("src\\putere.txt", "newOneOperation","@A", "10");
 
-        twoNumberOperation("D:\\OneDrive - Universitatea Politehnica Timisoara\\UPT AN 3 SEM I\\FIC\\Calculator\\src\\putere.txt", "newTwoOperation","@A", "10", "@B", "20");
+        twoNumberOperation("src\\putere.txt", "newTwoOperation","@A", "10", "@B", "20");
 
 
         System.out.println("done");

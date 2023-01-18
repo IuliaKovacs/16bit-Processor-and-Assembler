@@ -69,7 +69,7 @@ public class Assembler {
         instructionList.put("BRC", 4);   //000100
         instructionList.put("BRO", 5);   //000101
         instructionList.put("BRA", 6);   //000110
-        instructionList.put("JMP", 7);   //000111
+        instructionList.put("JMS", 7);   //000111
         instructionList.put("RET", 8);   //001000
         instructionList.put("ADD", 41);  //101001
         instructionList.put("SUB", 42);  //101010
@@ -266,6 +266,18 @@ public class Assembler {
 
         if (verifyHLT(op)){
             return "0000000000000000";
+        }
+
+        if ((op.equals("JMS") || op.equals("BRZ") || op.equals("BNE") || op.equals("BRC") || op.equals("BRO") || op.equals("BNA") ) && opCodeInstruction!=null)
+        {   String label = parsedLine[1];
+            String opCodeInstructionBinary = Integer.toBinaryString(opCodeInstruction);
+            String labelAddress = Integer.toBinaryString(labelList.get(label));
+            return saturateWithZeros(6, opCodeInstructionBinary.length()) + opCodeInstructionBinary + saturateWithZeros(10, labelAddress.length()) + labelAddress;
+        }
+
+        if (op.equals("RET")){
+            String opCodeInstructionBinary = Integer.toBinaryString(opCodeInstruction);
+            return saturateWithZeros(6, opCodeInstructionBinary.length()) + opCodeInstructionBinary + saturateWithZeros(10, 0);
         }
 
         if ( opCodeInstruction != null && register != null){

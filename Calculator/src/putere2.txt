@@ -2,8 +2,8 @@
         MOV Y, @A
         JMS INMULTIRE
         HLT
-INMULTIRE MUL X, 2
+INMULTIRE: MUL X, 2
         SUB Y,1
         CMP Y, 1
-        BNE INMULTIRE
+        BRO INMULTIRE
         RET

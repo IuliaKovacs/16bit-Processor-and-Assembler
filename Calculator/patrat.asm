@@ -1,3 +1,3 @@
-        MOV X, 8
-        MUL X, 8
+        MOV X, 3
+        MUL X, 3
         HLT

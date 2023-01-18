@@ -434,7 +434,7 @@ public class Calculator implements ActionListener {
                         str = this.textField.getText();
                         number2 = Integer.parseInt(this.textField.getText());
                         number1send = String.valueOf(Integer.parseInt(this.textField.getText()));
-                        AssemblyGenerator.oneNumberOperation("src\\aux.txt", "factorial", "@A", number1send);
+                        AssemblyGenerator.oneNumberOperation("src\\factorial.txt", "factorial", "@A", number1send);
                         args[0]="factorial.asm";
                         Assembler.assembleGeneratedAssembly(args);
                         rez = this.factorial(number2);

@@ -1,9 +1,9 @@
-        MOV X, 10
-        MOV Y, 33
+        MOV X, 2
+        MOV Y, 2
         JMS INMULTIRE
         HLT
-INMULTIRE: MUL X, 10
+INMULTIRE: MUL X, 2
         SUB Y,1
         CMP Y, 1
-        BNE INMULTIRE
+        BRO INMULTIRE
         RET
